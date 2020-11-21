@@ -11,6 +11,7 @@ routes.post('/users', UserController.store);
 routes.post('/usersadm', UserController.storeAdm);
 routes.post('/usage', UsageController.store);
 routes.post('/mail', MailController.lostpass);
+routes.post('/temptag', UsageController.tempstore);
 routes.post('/sessions', SessionController.store);
 
 routes.use(authMiddleware);
@@ -22,6 +23,5 @@ routes.get('/users', UserController.index);
 routes.delete('/users/:userId', UserController.delete);
 
 routes.get('/usage', UsageController.index);
-routes.post('/temptag', UsageController.tempstore);
 routes.get('/temptag', UsageController.indexTemp);
 export default routes;
