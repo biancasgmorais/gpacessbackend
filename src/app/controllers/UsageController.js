@@ -23,8 +23,8 @@ class UsageController {
 
     const today = new Date();
     today.toLocaleString('pt-br', { timezone: 'Brazil/brt' });
-    const dateusage = `${today.getDate()}/${today.getMonth()}/${today.getFullYear()}`;
-    const hourusage = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
+    const dateusage = `${today.getUTCDate()}/${today.getUTCMonth()}/${today.getUTCFullYear()}`;
+    const hourusage = `${today.getUTCHours()}:${today.getUTCMinutes()}:${today.getUTCSeconds()}`;
     const { name: name_user } = tagExists;
 
     await Usage.create({ ...req.body, name_user, dateusage, hourusage });
