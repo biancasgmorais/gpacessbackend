@@ -21,8 +21,7 @@ class UsageController {
         .json({ error: 'Tag não existente, acesso não liberado' });
     }
 
-    const today = new Date();
-    today.toLocaleString('pt-br', { timezone: 'Brazil/brt' });
+    const today = new Date().getTimezoneOffset();
     const dateusage = `${today.getUTCDate()}/${today.getUTCMonth()}/${today.getUTCFullYear()}`;
     const hourusage = `${today.getUTCHours()}:${today.getUTCMinutes()}:${today.getUTCSeconds()}`;
     const { name: name_user } = tagExists;
