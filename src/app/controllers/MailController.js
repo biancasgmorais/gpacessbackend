@@ -29,6 +29,10 @@ class MailController {
     if (!userExists) {
       return res.status(400).json({ error: 'Usuário não existente' });
     }
+    if (!userExists.provider) {
+      return res.status(400).json({ error: 'Usuário não é coordenador' });
+    }
+
     const password = Math.random().toString(36).substr(2, 8);
 
     /** Configuração email */
