@@ -1,14 +1,31 @@
 import * as Yup from 'yup';
 import nodemailer from 'nodemailer';
+import { google } from 'googleapis';
 import User from '../models/User';
 
+const { OAuth2 } = google.auth;
+
+const oauth2Client = new OAuth2(
+  process.env.MAIL_CLIENTID,
+  process.env.MAIL_CLIENTSECRET,
+  ' https://developers.google.com/oauthplayground '
+);
+
+oauth2Client.setCredentials({
+  refresh_token: process.env.MAIL_REFRESHTOKEN,
+});
+
+const accessToken = oauth2Client.getAccessToken();
+
 const transporter = nodemailer.createTransport({
-  host: process.env.MAIL_HOST,
-  port: process.env.MAIL_PORT,
-  secure: false,
+  service: 'gmail',
   auth: {
+    type: 'OAuth2',
     user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS,
+    clientId: process.env.MAIL_CLIENTID,
+    clientSecret: process.env.MAIL_CLIENTSECRET,
+    refreshToken: process.env.MAIL_REFRESHTOKEN,
+    accessToken,
   },
   tls: {
     rejectUnauthorized: false,
